@@ -1,0 +1,5 @@
+{"item_id":"15086","name":"Hearty Iron Shield","description":"","type":"Weapon","level":"30","rarity":"Fine","vendor_value":"31","game_types":["Activity",
+"Dungeon",
+"Pve",
+"Wvw"],"flags":[],"restrictions":[],"weapon":{"type":"Shield","damage_type":"Physical","min_power":"230","max_power":"259","defense":"15","infusion_slots":[],"infix_upgrade":{"attributes":[{"attribute":"Vitality","modifier":"18"},
+{"attribute":"Toughness","modifier":"13"}]},"suffix_item_id":""}}

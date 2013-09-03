@@ -1,0 +1,5 @@
+{"item_id":"417","name":"Strong Worn Scale Boots of Infiltration","description":"","type":"Armor","level":"38","rarity":"Masterwork","vendor_value":"72","game_types":["Activity",
+"Dungeon",
+"Pve",
+"Wvw"],"flags":["SoulBindOnUse"],"restrictions":[],"armor":{"type":"Boots","weight_class":"Heavy","defense":"59","infusion_slots":[],"infix_upgrade":{"attributes":[{"attribute":"Power","modifier":"10"},
+{"attribute":"Precision","modifier":"7"}]},"suffix_item_id":"24705"}}
