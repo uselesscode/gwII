@@ -35,7 +35,7 @@ var oldGw2 = window.gw2,
   },
   promiseWrap = function (value) {
     return deferredWrap(value).promise();
-  };
+  },
   hasPromiseMethods = function (v) {
     if (v &&
         v.always &&
