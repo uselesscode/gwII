@@ -4,17 +4,21 @@ $.mockjax({
   data: {
     id: 'test'
   },
-  responseText: {
-    test: 'success with param'
-  }
+  responseText: '{"test":"success with param"}'
+});
+$.mockjax({
+  responseTime: 10,
+  url: 'https://api.guildwars2.com/v1/fake_endpoint',
+  data: {
+    id: 'returnscopy'
+  },
+  responseText: '{"test": "value", "arr": [1, 2, 3, 4]}'
 });
 $.mockjax({
   responseTime: 10,
   url: 'https://api.guildwars2.com/v1/fake_endpoint',
   data: {},
-  responseText: {
-    test: 'success'
-  }
+  responseText: '{"test":"success"}'
 });
 $.mockjax({
   responseTime: 10,

@@ -29,9 +29,43 @@ var oldGw2 = window.gw2,
       dfd.reject();
     };
   },
-  promiseWrap = function (value) {
+  deferredWrap = function (value) {
     var dfd = $.Deferred();
-    return dfd.resolve(value).promise();
+    return dfd.resolve(value);
+  },
+  promiseWrap = function (value) {
+    return deferredWrap(value).promise();
+  };
+  hasPromiseMethods = function (v) {
+    if (v &&
+        v.always &&
+        v.done &&
+        v.fail &&
+        v.pipe &&
+        v.progress &&
+        v.promise &&
+        v.state &&
+        v.then) {
+      return true;
+    }
+    return false;
+  },
+  hasDeferredMethods = function (v) {
+    if (v &&
+        v.notify &&
+        v.notifyWith &&
+        v.reject &&
+        v.resolve &&
+        v.resolveWith) {
+      return true;
+    }
+    return false;
+  },
+  isDeferred = function (v) {
+    if (hasPromiseMethods(v) && hasDeferredMethods(v)) {
+      return true;
+    }
+    return false;
   },
 
   copyObj = function (obj) {
@@ -206,6 +240,7 @@ var oldGw2 = window.gw2,
   get = function (apiCall, cacheLength, data) {
     var value,
       key,
+      reject,
       theData,
       doNotCache = false;
 
@@ -216,23 +251,26 @@ var oldGw2 = window.gw2,
     theData = data || {};
     key = getKey(apiCall, theData);
 
-    value = cache.get(key, cacheLength, true);
+    value = cache.get(key, cacheLength);
 
     if (value === undefined) {
       value = $.Deferred();
+      reject = makeRejector(value);
+
       if (!doNotCache) {
         cache.set(key, value);
       }
 
-      $.getJSON(apiBase + apiCall, theData, function (json) {
+      $.get(apiBase + apiCall, theData, function (text) {
         if (!doNotCache) {
-          cache.set(key, json);
+          cache.set(key, text);
         }
-        value.resolve(json);
-      }).fail(function () {
-        value.reject();
-      });
+        value.resolve(JSON.parse(text));
+      }, 'text').fail(reject);
+    } else if (!isDeferred(value)) {
+      value = deferredWrap(JSON.parse(value));
     }
+
 
     return value.promise();
   },

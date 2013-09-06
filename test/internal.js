@@ -517,6 +517,25 @@ asyncTest('get() with null cacheLength', function () {
   }).fail(failAsyncTest);
 });
 
+asyncTest('get() returns copy not reference', function () {
+  gw2.clearCache();
+  get('fake_endpoint', true, {id: 'returnscopy'}).done(function (ret) {
+    strictEqual(ret.test, 'value', '.test is has a value of "value"');
+    strictEqual(ret.arr.length, 4, '.arr has a length of 4');
+
+    // alter object
+    ret.test = 'different value';
+    ret.arr.pop();
+
+    // request another copy of object
+    get('fake_endpoint', true, {id: 'returnscopy'}).done(function (ret) {
+      strictEqual(ret.test, 'value', '.test is not altered');
+      strictEqual(ret.arr.length, 4, '.arr is not altered');
+      start();
+    }).fail(failAsyncTest);
+  }).fail(failAsyncTest);
+});
+
 
 var testObjectives = {
     0: 'Castle',
