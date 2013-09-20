@@ -132,13 +132,7 @@ var wvw = {
     return promiseWrap(wvwObjectiveFullNames[lang]);
   },
   objectiveValue: function (objectiveId) {
-    var dfd = $.Deferred();
-    wvw.objectiveNamesAsObject({lang: 'en'}).done(function (objectiveNames) {
-      dfd.resolve(getObjectiveValue(objectiveId, objectiveNames));
-    }).fail(function () {
-      dfd.reject();
-    });
-    return dfd.promise();
+    return promiseWrap(getObjectiveValue(objectiveId));
   },
 
   potentialPoints: function (worldId, map) {

@@ -1,3 +1,15 @@
+v1.0.3
+* The new WvW objectives broke `gw2.wvw.potentialPoints`, this update
+changes the way the value of objectives are calculated to correct
+this. This change should also protect against future non-scoring
+objectives interfering with score calculation.
+
+* `gw2.wvw.objectiveFullName` and `gw2.wvw.objectiveFullNamesAsObject`
+now include the names of the new objectives.
+
+* All Unicode characters in items returned by `gw2.wvw.objectiveFullName`
+and `gw2.wvw.objectiveFullNamesAsObject` should now be properly encoded.
+
 v1.0.2
 Fixing typo in 1.0.1 that caused error building. Adding built files.
 Adding changelog.md

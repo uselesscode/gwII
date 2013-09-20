@@ -275,21 +275,73 @@ var oldGw2 = window.gw2,
     return value.promise();
   },
 
-  getObjectiveValue = function (id, objectiveNamesObject) {
-    var name;
-
-    name = objectiveNamesObject[+id];
-
-    switch (name) {
-    case 'Castle':
-      return 35;
-    case 'Keep':
-      return 25;
-    case 'Tower':
-      return 10;
-    default:
-      return 5;
+  objectiveValues = [
+    {
+      //camp
+      ids: [
+        // orchard
+        34, 43, 24,
+        // crossroads
+        39, 56, 29,
+        // fishing village
+        50, 55, 61,
+        // lumber mill
+        51, 54, 60,
+        // quarry
+        52, 48, 58,
+        // workshop
+        53, 49, 59,
+        // mill
+        4, 6, 8,
+        // mine
+        5, 7, 10,
+      ],
+      value: 5
+    },
+    {
+      //tower
+      ids: [35, 36, 38, 40, 42, 45, 47, 57, 25, 26, 28, 30, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22],
+      value: 10
+    },
+    {
+      //bloodLust
+      ids: [
+        // ((Temple of Lost Prayers))
+        62, 76, 71,
+        // ((Battle's Hollow))
+        63, 75, 70,
+        // ((Bauer's Estate))
+        64, 74, 69,
+        // ((Orchard Overlook))
+        65, 73, 68,
+        // ((Carver's Ascent))
+        66, 72, 67
+      ],
+      value: 0
+    },
+    {
+      //keep
+      ids: [32, 33, 37, 41, 44, 46, 23, 27, 31, 1, 2, 3],
+      value: 25
+    },
+    {
+      //castle
+      ids: [9],
+      value: 35
     }
+  ],
+  getObjectiveValue = function (id) {
+    id = +id;
+
+    var i,
+      len;
+
+    for (i = 0, len = objectiveValues.length; i < len; i += 1) {
+      if (objectiveValues[i].ids.indexOf(id) !== -1) {
+        return objectiveValues[i].value;
+      }
+    }
+    return 0;
   },
 
   namesContaining = function (getter, search, options) {
@@ -320,7 +372,7 @@ var oldGw2 = window.gw2,
       2: 'Tal',
       3: 'Tiefland',
       4: 'Golanta-Lichtung',
-      5: 'Pangloss-Anhöhe',
+      5: 'Pangloss-Anh\xF6he',
       6: 'Speldan Kahlschlag',
       7: 'Danelon-Passage',
       8: 'Umberlichtung-Forst',
@@ -341,42 +393,62 @@ var oldGw2 = window.gw2,
       23: 'Festung',
       24: 'Landgut des Champions',
       25: 'Rotdornstrauch',
-      26: 'Grünsee',
+      26: 'Gr\xFCnsee',
       27: 'Bucht des Aufstiegs',
-      28: 'Horst der Morgendämmerung',
+      28: 'Horst der Morgend\xE4mmerung',
       29: 'Der Geisterholm',
       30: 'Wald-Freistatt',
-      31: 'Askalion-Hügel',
-      32: 'Etheron-Hügel',
+      31: 'Askalion-H\xFCgel',
+      32: 'Etheron-H\xFCgel',
       33: 'Traumbucht',
-      34: 'Sieger-Hütte',
-      35: 'Grünstrauch',
+      34: 'Sieger-H\xFCtte',
+      35: 'Gr\xFCnstrauch',
       36: 'Blausee',
       37: 'Festung',
       38: 'Weitsicht',
       39: 'Das Gottschwert',
       40: 'Felswand',
-      41: 'Shadaran-Hügel',
+      41: 'Shadaran-H\xFCgel',
       42: 'Rotsee',
-      43: 'Hütte des Helden',
+      43: 'H\xFCtte des Helden',
       44: 'Schreckensfall-Bucht',
       45: 'Blaudornstrauch',
       46: 'Festung',
-      47: 'Sonnenlichthügel',
+      47: 'Sonnenlichth\xFCgel',
       48: 'Glaubenssprung',
       49: 'Blautal-Zuflucht',
       50: 'Blauwasser-Tiefland',
       51: 'Astralholm',
       52: 'Arahs Hoffnung',
-      53: 'Grüntal-Zuflucht',
+      53: 'Gr\xFCntal-Zuflucht',
       54: 'Nebel-Freistatt',
       55: 'Rotwasser-Tiefland',
       56: 'Die Titanenpranke',
       57: 'Felsenspitze',
-      58: 'Götterkunde',
+      58: 'G\xF6tterkunde',
       59: 'Rottal-Zuflucht',
       60: 'Sternenhain',
-      61: 'Grünwasser-Tiefland'
+      61: 'Gr\xFCnwasser-Tiefland',
+
+      62: 'Tempel der Verlorenen Gebete',
+      71: 'Tempel der Verlorenen Gebete',
+      76: 'Tempel der Verlorenen Gebete',
+
+      63: 'Schlachten-Senke',
+      70: 'Schlachten-Senke',
+      75: 'Schlachten-Senke',
+
+      64: 'Bauers Anwesen',
+      69: 'Bauers Anwesen',
+      74: 'Bauers Anwesen',
+
+      65: 'Obstgarten Aussichtspunkt',
+      68: 'Obstgarten Aussichtspunkt',
+      73: 'Obstgarten Aussichtspunkt',
+
+      66: 'Aufstieg des Schnitzers',
+      67: 'Aufstieg des Schnitzers',
+      72: 'Aufstieg des Schnitzers'
     },
     en: {
       1: 'Overlook',
@@ -439,7 +511,27 @@ var oldGw2 = window.gw2,
       58: 'Godslore',
       59: 'Redvale Refuge',
       60: 'Stargrove',
-      61: 'Greenwater Lowlands'
+      61: 'Greenwater Lowlands',
+
+      62: 'Temple of Lost Prayers',
+      71: 'Temple of Lost Prayers',
+      76: 'Temple of Lost Prayers',
+
+      63: 'Battle\'s Hollow',
+      70: 'Battle\'s Hollow',
+      75: 'Battle\'s Hollow',
+
+      64: 'Bauer\'s Estate',
+      69: 'Bauer\'s Estate',
+      74: 'Bauer\'s Estate',
+
+      65: 'Orchard Overlook',
+      68: 'Orchard Overlook',
+      73: 'Orchard Overlook',
+
+      66: 'Carver\'s Ascent',
+      67: 'Carver\'s Ascent',
+      72: 'Carver\'s Ascent'
     },
     es: {
       1: 'Mirador',
@@ -451,7 +543,7 @@ var oldGw2 = window.gw2,
       7: 'Pasaje Danelon',
       8: 'Bosques Clarosombra',
       9: 'Castillo Piedraniebla',
-      10: 'Cantera del Pícaro',
+      10: 'Cantera del P\xEDcaro',
       11: 'Cornisa de Aldon',
       12: 'Pista Arroyosalvaje',
       13: 'Cenagal de Jerrifer',
@@ -465,27 +557,27 @@ var oldGw2 = window.gw2,
       21: 'Barranco Durios',
       22: 'Escarpadura Bravost',
       23: 'Fuerte',
-      24: 'Dominio del Campeón',
+      24: 'Dominio del Campe\xF3n',
       25: 'Zarzarroja',
       26: 'Lagoverde',
-      27: 'Bahía de la Ascensión',
+      27: 'Bah\xEDa de la Ascensi\xF3n',
       28: 'Aguilera del Alba',
       29: 'La Isleta Espiritual',
       30: 'Refugio Forestal',
       31: 'Colinas Askalion',
       32: 'Colinas Etheron',
-      33: 'Bahía Onírica',
+      33: 'Bah\xEDa On\xEDrica',
       34: 'Albergue del Vencedor',
       35: 'Zarzaverde',
       36: 'Lagoazul',
       37: 'Fuerte',
       38: 'Vistaluenga',
       39: 'La Hoja Divina',
-      40: 'Despeñadero',
+      40: 'Despe\xF1adero',
       41: 'Colinas Shadaran',
       42: 'Lagorrojo',
-      43: 'Albergue del Héroe',
-      44: 'Bahía Salto Aciago',
+      43: 'Albergue del H\xE9roe',
+      44: 'Bah\xEDa Salto Aciago',
       45: 'Zarzazul',
       46: 'Fuerte',
       47: 'Colina Soleada',
@@ -497,24 +589,44 @@ var oldGw2 = window.gw2,
       53: 'Refugio de Valleverde',
       54: 'Refugio Neblinoso',
       55: 'Tierras Bajas de Aguarroja',
-      56: 'La Garra del Titán',
-      57: 'Cumbrepeñasco',
-      58: 'Sabiduría de los Dioses',
+      56: 'La Garra del Tit\xE1n',
+      57: 'Cumbrepe\xF1asco',
+      58: 'Sabidur\xEDa de los Dioses',
       59: 'Refugio Vallerojo',
       60: 'Arboleda de las Estrellas',
-      61: 'Tierras Bajas de Aguaverde'
+      61: 'Tierras Bajas de Aguaverde',
+
+      62: 'Templo de las Pelgarias',
+      71: 'Templo de las Pelgarias',
+      76: 'Templo de las Pelgarias',
+
+      63: 'Hondonada de la Battalla',
+      70: 'Hondonada de la Battalla',
+      75: 'Hondonada de la Battalla',
+
+      64: 'Hacienda de Bauer',
+      69: 'Hacienda de Bauer',
+      74: 'Hacienda de Bauer',
+
+      65: 'Mirador del Huerto',
+      68: 'Mirador del Huerto',
+      73: 'Mirador del Huerto',
+
+      66: 'Ascenso del Trinchador',
+      67: 'Ascenso del Trinchador',
+      72: 'Ascenso del Trinchador'
     },
     fr: {
-      1: 'Belvédère',
-      2: 'Vallée',
+      1: 'Belv\xE9d\xE8re',
+      2: 'Vall\xE9e',
       3: 'Basses terres',
-      4: 'Clairière de Golanta',
-      5: 'Montée de Pangloss',
-      6: 'Forêt rasée de Speldan',
+      4: 'Clairi\xE8re de Golanta',
+      5: 'Mont\xE9e de Pangloss',
+      6: 'For\xEAt ras\xE9e de Speldan',
       7: 'Passage Danelon',
       8: 'Bois d\'Ombreclair',
-      9: 'Château Brumepierre',
-      10: 'Carrière des voleurs',
+      9: 'Ch\xE2teau Brumepierre',
+      10: 'Carri\xE8re des voleurs',
       11: 'Corniche d\'Aldon',
       12: 'Piste du Ruisseau sauvage',
       13: 'Bourbier de Jerrifer',
@@ -523,7 +635,7 @@ var oldGw2 = window.gw2,
       16: 'Lac Quentin',
       17: 'Faille de Mendon',
       18: 'Col d\'Anzalias',
-      19: 'Percée de Gardogre',
+      19: 'Perc\xE9e de Gardogre',
       20: 'Flanc de Veloka',
       21: 'Ravin de Durios',
       22: 'Falaise de Bravost',
@@ -537,21 +649,21 @@ var oldGw2 = window.gw2,
       30: 'Gentesylve',
       31: 'Collines d\'Askalion',
       32: 'Collines d\'Etheron',
-      33: 'Baie des rêves',
+      33: 'Baie des r\xEAves',
       34: 'Pavillon du vainqueur',
       35: 'Vertebranche',
       36: 'Lac bleu',
       37: 'Garnison',
       38: 'Longuevue',
-      39: 'L\'Epée divine',
+      39: 'L\'Ep\xE9e divine',
       40: 'Flanc de falaise',
       41: 'Collines de Shadaran',
       42: 'Rougelac',
-      43: 'Pavillon du Héros',
-      44: 'Baie du Noir déclin',
+      43: 'Pavillon du H\xE9ros',
+      44: 'Baie du Noir d\xE9clin',
       45: 'Bruyazur',
       46: 'Garnison',
-      47: 'Colline ensoleillée',
+      47: 'Colline ensoleill\xE9e',
       48: 'Ferveur',
       49: 'Refuge de bleubal',
       50: 'Basses terres d\'Eau-Azur',
@@ -565,6 +677,26 @@ var oldGw2 = window.gw2,
       58: 'Divination',
       59: 'Refuge de Valrouge',
       60: 'Bosquet stellaire',
-      61: 'Basses terres d\'Eau-Verdoyante'
+      61: 'Basses terres d\'Eau-Verdoyante',
+
+      62: 'Temple des pri\xE8res perdues',
+      71: 'Temple des pri\xE8res perdues',
+      76: 'Temple des pri\xE8res perdues',
+
+      63: 'Vallon de bataille',
+      70: 'Vallon de bataille',
+      75: 'Vallon de bataille',
+
+      64: 'Domaine de Bauer',
+      69: 'Domaine de Bauer',
+      74: 'Domaine de Bauer',
+
+      65: 'Belv\xE9d\xE8re du Verger',
+      68: 'Belv\xE9d\xE8re du Verger',
+      73: 'Belv\xE9d\xE8re du Verger',
+
+      66: 'C\xF4te du couteau',
+      67: 'C\xF4te du couteau',
+      72: 'C\xF4te du couteau'
     }
   };

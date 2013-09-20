@@ -391,7 +391,7 @@ module('WvW');
 asyncTest( "matches.json", function() {
   gw2.wvw.matches().done(function (matches) {
     strictEqual(matches.length, 17, '17 items in match list');
-    strictEqual(matches[0].wvw_match_id, '1-1', 'match 1-1 is first in the list');
+    strictEqual(matches[0].wvw_match_id, '1-2', 'match 1-2 is first in the list');
     start();
   });
 });
@@ -399,11 +399,11 @@ asyncTest( "matches.json", function() {
 asyncTest( "match 1-1", function() {
   gw2.wvw.match('1-1').done(function (match) {
     strictEqual(match.wvw_match_id, '1-1', 'match 1-1');
-    strictEqual(match.red_world_id, 1008, '1008 is red');
-    strictEqual(match.blue_world_id, 1019, '1019 is blue');
+    strictEqual(match.red_world_id, 1019, '1019 is red');
+    strictEqual(match.blue_world_id, 1008, '1008 is blue');
     strictEqual(match.green_world_id, 1013, '1013 is green');
-    strictEqual(match.start_time, '2013-06-29T01:00:00Z', 'match started at 2013-06-29T01:00:00Z');
-    strictEqual(match.end_time, '2013-07-06T01:00:00Z', 'match started at 2013-07-06T01:00:00Z');
+    strictEqual(match.start_time, '2013-09-14T01:00:00Z', 'match started at 2013-09-14T01:00:00Z');
+    strictEqual(match.end_time, '2013-09-21T01:00:00Z', 'match started at 2013-09-21T01:00:00Z');
 
     start();
   });
@@ -419,11 +419,11 @@ asyncTest( "matchIdFromWorldId", function() {
 asyncTest( "worldMatch", function() {
   gw2.wvw.worldMatch(1008).done(function (match) {
     strictEqual(match.wvw_match_id, '1-1', 'match 1-1');
-    strictEqual(match.red_world_id, 1008, '1008 is red');
-    strictEqual(match.blue_world_id, 1019, '1019 is blue');
+    strictEqual(match.red_world_id, 1019, '1019 is red');
+    strictEqual(match.blue_world_id, 1008, '1008 is blue');
     strictEqual(match.green_world_id, 1013, '1013 is green');
-    strictEqual(match.start_time, '2013-06-29T01:00:00Z', 'match started at 2013-06-29T01:00:00Z');
-    strictEqual(match.end_time, '2013-07-06T01:00:00Z', 'match started at 2013-07-06T01:00:00Z');
+    strictEqual(match.start_time, '2013-09-14T01:00:00Z', 'match started at 2013-09-14T01:00:00Z');
+    strictEqual(match.end_time, '2013-09-21T01:00:00Z', 'match started at 2013-09-21T01:00:00Z');
 
     start();
   });
@@ -432,19 +432,19 @@ asyncTest( "worldMatch", function() {
 asyncTest( "match_details.json", function() {
   gw2.wvw.matchDetails('1-1').done(function (details) {
     strictEqual(details.match_id, '1-1', 'match 1-1');
-    strictEqual(details.scores[0], 109893, 'team #1 score 109893');
-    strictEqual(details.scores[1], 123736, 'team #1 score 123736');
-    strictEqual(details.scores[2], 133075, 'team #1 score 133075');
+    strictEqual(details.scores[0], 170999, 'team #1 score 109893');
+    strictEqual(details.scores[1], 150218, 'team #1 score 123736');
+    strictEqual(details.scores[2], 163297, 'team #1 score 133075');
 
     strictEqual(details.maps[0].type, 'RedHome', 'The fisrt map is red');
     strictEqual(details.maps[1].type, 'GreenHome', 'The second map is green');
     strictEqual(details.maps[2].type, 'BlueHome', 'The third map is blue');
     
     strictEqual(details.maps[0].objectives[0].id, 32, 'objective #32 is first');
-    strictEqual(details.maps[0].objectives[0].owner, 'Green', 'Green owns objective #32');
-    strictEqual(details.maps[0].objectives[5].id, 37, 'objective #37 is first');
-    strictEqual(details.maps[0].objectives[5].owner, 'Red', 'Red owns objective #32');
-    strictEqual(details.maps[0].objectives[5].owner_guild, '5E662821-4B66-4F7A-BCED-6EDFA6BEA666', '"The Elite Ones" claimed objective #32');
+    strictEqual(details.maps[0].objectives[0].owner, 'Blue', 'Blue owns objective #32');
+    strictEqual(details.maps[0].objectives[5].id, 37, 'objective #37 is 6th');
+    strictEqual(details.maps[0].objectives[5].owner, 'Red', 'Red owns objective #37');
+    strictEqual(details.maps[0].objectives[5].owner_guild, 'E0CA6580-FFEC-406E-B738-B477B1FE9C78', '"Army Of Lightness" claimed objective #37');
 
     start();
   });
@@ -453,7 +453,7 @@ asyncTest( "match_details.json", function() {
 asyncTest( "objectiveNames.json", function() {
   var options = {};
   gw2.wvw.objectiveNames(options).done(function (names) {
-    strictEqual(names.length, 61, 'There are 61 objectives');
+    strictEqual(names.length, 76, 'There are 76 objectives');
     deepEqual(names[0].id, 30, 'The first item has an id of 30');
     deepEqual(names[0].name, 'Tower', 'The first item has a name of Tower');
     start();
@@ -462,7 +462,7 @@ asyncTest( "objectiveNames.json", function() {
 asyncTest( "objectiveNames.json noNormalize", function() {
   var options = {noNormalize: true};
   gw2.wvw.objectiveNames(options).done(function (names) {
-    strictEqual(names.length, 61, 'There are 61 objectives');
+    strictEqual(names.length, 76, 'There are 76 objectives');
     deepEqual(names[0].id, '30', 'The first item has an id of 30');
     deepEqual(names[0].name, 'Tower', 'The first item has a name of Tower');
     start();
@@ -471,7 +471,7 @@ asyncTest( "objectiveNames.json noNormalize", function() {
 asyncTest( "objectiveNames.json {lang: 'es'}", function() {
   var options = {lang: 'es'};
   gw2.wvw.objectiveNames(options).done(function (names) {
-    strictEqual(names.length, 61, 'There are 61 objectives');
+    strictEqual(names.length, 76, 'There are 76 objectives');
     deepEqual(names[0].id, 30, 'The first item has an id of 30');
     deepEqual(names[0].name, 'Torre', 'The first item has a name of Tower');
     start();
@@ -480,7 +480,7 @@ asyncTest( "objectiveNames.json {lang: 'es'}", function() {
 asyncTest( "objectiveNames.json {noNormalize: true, lang: 'es'}", function() {
   var options = {noNormalize: true, lang: 'es'};
   gw2.wvw.objectiveNames(options).done(function (names) {
-    strictEqual(names.length, 61, 'There are 61 objectives');
+    strictEqual(names.length, 76, 'There are 76 objectives');
     deepEqual(names[0].id, '30', 'The first item has an id of 30');
     deepEqual(names[0].name, 'Torre', 'The first item has a name of Tower');
     start();
@@ -545,7 +545,7 @@ asyncTest( "objectiveFullName(9, {lang: 'de'})", function() {
 
 asyncTest( "objectiveFullName(9, {lang: 'fr'})", function() {
   gw2.wvw.objectiveFullName(9, {lang: 'fr'}).done(function (name) {
-    strictEqual(name, 'Château Brumepierre', 'objectiveId 9 is "Château Brumepierre"');
+    strictEqual(name, 'Ch\xE2teau Brumepierre', 'objectiveId 9 is "Ch\xE2teau Brumepierre"');
     start();
   });
 });
@@ -575,7 +575,7 @@ asyncTest( "objectiveFullNamesAsObject en", function() {
 asyncTest( "objectiveFullNamesAsObject es", function() {
   gw2.wvw.objectiveFullNamesAsObject({lang: 'es'}).done(function (names) {
     strictEqual(names[30], 'Refugio Forestal', '30 is Refugio Forestal');
-    strictEqual(names[57], 'Cumbrepeñasco', '57 is Cumbrepeñasco');
+    strictEqual(names[57], 'Cumbrepe\xF1asco', '57 is Cumbrepe\xF1asco');
     strictEqual(names[9], 'Castillo Piedraniebla', '9 is Castillo Piedraniebla');
     strictEqual(names[32], 'Colinas Etheron', '32 is Colinas Etheron');
     strictEqual(names[60], 'Arboleda de las Estrellas', '60 is Arboleda de las Estrellas');
@@ -588,7 +588,7 @@ asyncTest( "objectiveFullNamesAsObject de", function() {
     strictEqual(names[30], 'Wald-Freistatt', '30 is Wald-Freistatt');
     strictEqual(names[57], 'Felsenspitze', '57 is Felsenspitze');
     strictEqual(names[9], 'Schloss Steinnebel', '9 is Schloss Steinnebel');
-    strictEqual(names[32], 'Etheron-Hügel', '32 is Etheron-Hügel');
+    strictEqual(names[32], 'Etheron-H\xFCgel', '32 is Etheron-H\xFCgel');
     strictEqual(names[60], 'Sternenhain', '60 is Sternenhain');
     start();
   });
@@ -598,7 +598,7 @@ asyncTest( "objectiveFullNamesAsObject fr", function() {
   gw2.wvw.objectiveFullNamesAsObject({lang: 'fr'}).done(function (names) {
     strictEqual(names[30], 'Gentesylve', '30 is a Gentesylve');
     strictEqual(names[57], 'Sommet de l\'escarpement', '57 is a Sommet de l\'escarpement');
-    strictEqual(names[9], 'Château Brumepierre', '9 is Château Brumepierre');
+    strictEqual(names[9], 'Ch\xE2teau Brumepierre', '9 is Ch\xE2teau Brumepierre');
     strictEqual(names[32], 'Collines d\'Etheron', '32 is Collines d\'Etheron');
     strictEqual(names[60], 'Bosquet stellaire', '60 is Bosquet stellaire');
     start();
@@ -607,13 +607,13 @@ asyncTest( "objectiveFullNamesAsObject fr", function() {
 
 asyncTest( "potentialPoints", function() {
   gw2.wvw.potentialPoints(1008).done(function (points) {
-    strictEqual(points, 225, 'red team has 225 points');
+    strictEqual(points, 170, 'red team has 170 points');
     start();
   });
 });
 asyncTest( "potentialPoints red map", function() {
   gw2.wvw.potentialPoints(1008, 'r').done(function (points) {
-    strictEqual(points, 60, 'red map red team has 60 points');
+    strictEqual(points, 45, 'red map red team has 45 points');
     start();
   });
 });
@@ -625,13 +625,13 @@ asyncTest( "potentialPoints green map", function() {
 });
 asyncTest( "potentialPoints blue map", function() {
   gw2.wvw.potentialPoints(1008, 'b').done(function (points) {
-    strictEqual(points, 80, 'blue map red team has 80 points');
+    strictEqual(points, 25, 'blue map red team has 25 points');
     start();
   });
 });
 asyncTest( "potentialPoints center map", function() {
   gw2.wvw.potentialPoints(1008, 'c').done(function (points) {
-    strictEqual(points, 65, 'center map red team has 65 points');
+    strictEqual(points, 80, 'center map red team has 80 points');
     start();
   });
 });

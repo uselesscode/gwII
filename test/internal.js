@@ -537,28 +537,27 @@ asyncTest('get() returns copy not reference', function () {
 });
 
 
-var testObjectives = {
-    0: 'Castle',
-    1: 'Keep',
-    2: 'Tower',
-    3: 'some other objective',
-  },
-  testGetObjectiveValue = function (id, expected) {
-    var name = testObjectives[id],
-      value = getObjectiveValue(id, testObjectives);
-    strictEqual(value, expected, expected + ' is the value of ' + name);
-  };
-test('getObjectiveValue', function () {
-  testGetObjectiveValue(0, 35);
+var testGetObjectiveValue = function (id, expected) {
+  var value = getObjectiveValue(id);
+  strictEqual(value, expected, expected + ' is the value of objective #' + id);
+};
+test('getObjectiveValue castle', function () {
+  testGetObjectiveValue(9, 35);
 });
-test('getObjectiveValue', function () {
-  testGetObjectiveValue(1, 25);
+test('getObjectiveValue keep', function () {
+  testGetObjectiveValue(32, 25);
 });
-test('getObjectiveValue', function () {
-  testGetObjectiveValue(2, 10);
+test('getObjectiveValue tower', function () {
+  testGetObjectiveValue(30, 10);
 });
-test('getObjectiveValue', function () {
-  testGetObjectiveValue(3, 5);
+test('getObjectiveValue lumber mill', function () {
+  testGetObjectiveValue(60, 5);
+});
+test('getObjectiveValue Temple of lost Prayers', function () {
+  testGetObjectiveValue(76, 0);
+});
+test('getObjectiveValue non-existent objective', function () {
+  testGetObjectiveValue(9001, 0);
 });
 
 
